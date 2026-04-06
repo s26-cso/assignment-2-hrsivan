@@ -95,7 +95,7 @@ getAtMost:                                  # a0: val, a1: root
     check:
         lw t0, 0(a1)                        # load root val
 
-        blt t0, a0, check_right             # if current val is >=, search in left substree
+        ble t0, a0, check_right             # if current val is >, search in left substree
             ld a1, 8(a1)                    # load left child
 
             ld ra, 0(sp)                    # restore ret add
