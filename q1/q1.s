@@ -121,7 +121,7 @@ getAtMost:                                  # a0: val, a1: root
                 j end_getAtMost
 
     end_getAtMost:
-        ld a1, 8(sp)
+        ld a0, 8(sp)
         ld ra, 0(sp)
         addi sp, sp, 16
 
