@@ -8,8 +8,14 @@ printint: .asciz "%d "
 .global code
 
 code:                                           # a0: number of args, a1: address of arg1
-    addi sp, sp, -16                            # make space for
-    sd ra, 0(sp)                                # return address
+    addi sp, sp, -64                            # make space for
+    sd ra, 56(sp)                               # return address
+    sd s0, 48(sp)
+    sd s1, 40(sp)
+    sd s2, 32(sp)
+    sd s3, 24(sp)
+    sd s4, 16(sp)
+    sd s5, 8(sp)
 
     addi s0, a0, -1                             # s0: array length (N)
     addi s1, a1, 8                              # s1 = address[a0] + 8 = arg[0]
@@ -133,3 +139,14 @@ code:                                           # a0: number of args, a1: addres
     end_print:
         ld ra, 0(sp)
         addi sp, sp, 16
+
+    ld ra, 56(sp)                               
+    ld s0, 48(sp)
+    ld s1, 40(sp)
+    ld s2, 32(sp)
+    ld s3, 24(sp)
+    ld s4, 16(sp)
+    ld s5, 8(sp)
+    addi sp, sp, 64                            
+
+    ret
