@@ -81,6 +81,9 @@ ispalindrome:
         j end_prog
 
     end_prog:
+        mv a0, s0
+        call fclose
+
         ld ra, 40(sp)
         ld s0, 32(sp)
         ld s1, 24(sp)
