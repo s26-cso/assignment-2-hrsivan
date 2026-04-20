@@ -7,7 +7,7 @@ printint: .asciz "%d "
 .section .text
 .global code
 
-code:                                           # a0: number of args, a1: address of arg1
+main:                                           # a0: number of args, a1: address of arg1
     addi sp, sp, -64                            # make space for
     sd ra, 56(sp)                               # return address
     sd s0, 48(sp)

@@ -95,6 +95,7 @@ getAtMost:                                  # a0: val, a1: root
     check:
         lw t0, 0(a1)                        # load root val
 
+        beq t0, a0, found                   # root val is equal to search
         ble t0, a0, check_right             # if current val is >, search in left substree
             ld a1, 8(a1)                    # load left child
 
@@ -119,6 +120,10 @@ getAtMost:                                  # a0: val, a1: root
             
             ret_right_val:
                 j end_getAtMost
+        
+        found:
+            mv a0, t0                       # return root add
+            j end_getAtMost
 
     end_getAtMost:
         ld a0, 8(sp)

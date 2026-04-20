@@ -7,7 +7,7 @@ no: .asciz "No\n"
 .section .text
 .global ispalindrome
 
-ispalindrome:
+main:
     addi sp, sp, -48                        # callee shall save:
     sd ra, 40(sp)
     sd s0, 32(sp)
