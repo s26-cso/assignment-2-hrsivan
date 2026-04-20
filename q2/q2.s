@@ -7,7 +7,7 @@ printrest:  .asciz " %d"     # for subsequent numbers, leading space
 newline:    .asciz "\n"      # newline at end
 
 .section .text
-.global code
+.global main
 
 main:                                           # a0: number of args, a1: address of arg1
     addi sp, sp, -64                            # make space for
