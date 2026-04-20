@@ -5,7 +5,7 @@ yes: .asciz "Yes\n"
 no: .asciz "No\n"
 
 .section .text
-.global ispalindrome
+.global main
 
 main:
     addi sp, sp, -48                        # callee shall save:
