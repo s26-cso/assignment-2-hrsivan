@@ -2,7 +2,9 @@
 arr: .space 400000000
 
 .section .data
-printint: .asciz "%d "
+printfirst: .asciz "%d"      # for first number, no leading space
+printrest:  .asciz " %d"     # for subsequent numbers, leading space
+newline:    .asciz "\n"      # newline at end
 
 .section .text
 .global code
@@ -118,27 +120,33 @@ main:                                           # a0: number of args, a1: addres
         j for_loop
 
     end_for_loop:
-    mv s2, zero                             # i = 0
-
+    mv   s2, zero               # i = 0
+    
     print_loop:
-        bge s2, s0, end_print               # exit if i >= N
+        bge  s2, s0, end_print
 
-        la a0, printint                     # format string
+        # choose format string
+        bnez s2, not_first
+        la   a0, printfirst     # first number: no space
+        j    do_print
 
-        slli t0, s2, 2                      # get offset on res for i
-        mv t1, s4                           # load base address for res
-        add t2, t0, t1                      # get address[res[i]]
-        lw a1, 0(t2)                        # load res[i]
-
+    not_first:
+        la   a0, printrest      # rest: leading space
+    
+    do_print:
+        # load res[i] into a1
+        slli t0, s2, 2
+        mv   t1, s4
+        add  t2, t0, t1
+        lw   a1, 0(t2)
         call printf
 
-        addi s2, s2, 1                      # i++
+        addi s2, s2, 1
+        j    print_loop
 
-        j print_loop
-        
-    end_print:
-        ld ra, 0(sp)
-        addi sp, sp, 16
+end_print:
+    la   a0, newline
+    call printf
 
     ld ra, 56(sp)                               
     ld s0, 48(sp)
